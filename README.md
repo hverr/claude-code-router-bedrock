@@ -20,7 +20,7 @@
 ## ✨ Features
 
 - **Model Routing**: Route requests to different models based on your needs (e.g., background tasks, thinking, long context).
-- **Multi-Provider Support**: Supports various model providers like OpenRouter, DeepSeek, Ollama, Gemini, Volcengine, and SiliconFlow.
+- **Multi-Provider Support**: Supports various model providers like OpenRouter, DeepSeek, Ollama, Gemini, Volcengine, SiliconFlow, and Amazon Bedrock.
 - **Request/Response Transformation**: Customize requests and responses for different providers using transformers.
 - **Dynamic Model Switching**: Switch models on-the-fly within Claude Code using the `/model` command.
 - **CLI Model Management**: Manage models and providers directly from the terminal with `ccr model`.
@@ -190,6 +190,19 @@ Here is a comprehensive example:
         "claude-opus-4-20250514",
         "gemini-2.5-pro"
       ]
+    },
+    {
+      "name": "bedrock",
+      "api_base_url": "https://bedrock-runtime.us-east-1.amazonaws.com",
+      "api_key": "bedrock-api-key-YOUR_BEARER_TOKEN_HERE",
+      "models": [
+        "anthropic.claude-3-5-sonnet-20240620-v1:0",
+        "anthropic.claude-3-sonnet-20240229-v1:0",
+        "anthropic.claude-3-haiku-20240307-v1:0"
+      ],
+      "transformer": {
+        "use": ["bedrock"]
+      }
     }
   ],
   "Router": {
@@ -406,6 +419,7 @@ Transformers allow you to modify the request and response payloads to ensure com
     }
   ```
 - `groq`: Adapts requests/responses for groq API.
+- `bedrock`: Adapts requests/responses for Amazon Bedrock API. Supports both bearer token authentication (for third-party Bedrock providers) and AWS Signature V4 authentication (for direct AWS access).
 - `maxtoken`: Sets a specific `max_tokens` value.
 - `tooluse`: Optimizes tool usage for certain models via `tool_choice`.
 - `gemini-cli` (experimental): Unofficial support for Gemini via Gemini CLI [gemini-cli.js](https://gist.github.com/musistudio/1c13a65f35916a7ab690649d3df8d1cd).
